@@ -23,8 +23,11 @@ class DeltaLakeSinkTaskTest {
     void setUp() {
         task = new DeltaLakeSinkTask();
         props = new HashMap<>();
-        props.put("delta.table.path", "/tmp/delta-test");
-        props.put("flush.size", "100");
+        props.put("databricks.jdbc.url", "jdbc:databricks://test:443/default");
+        props.put("databricks.token", "dapi123");
+        props.put("databricks.catalog", "development");
+        props.put("databricks.schema", "default");
+        props.put("topics", "test.topic");
     }
 
     @Test

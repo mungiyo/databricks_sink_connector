@@ -21,8 +21,10 @@ class DeltaLakeSinkConnectorTest {
     void setUp() {
         connector = new DeltaLakeSinkConnector();
         props = new HashMap<>();
-        props.put("delta.table.path", "/tmp/delta-test");
-        props.put("flush.size", "100");
+        props.put("databricks.jdbc.url", "jdbc:databricks://test:443/default");
+        props.put("databricks.token", "dapi123");
+        props.put("databricks.catalog", "development");
+        props.put("databricks.schema", "default");
     }
 
     @Test
@@ -50,8 +52,10 @@ class DeltaLakeSinkConnectorTest {
         
         // 각 task config가 원본 설정을 포함하는지 확인
         for (Map<String, String> taskConfig : taskConfigs) {
-            assertEquals("/tmp/delta-test", taskConfig.get("delta.table.path"));
-            assertEquals("100", taskConfig.get("flush.size"));
+            assertEquals("jdbc:databricks://test:443/default", taskConfig.get("databricks.jdbc.url"));
+            assertEquals("dapi123", taskConfig.get("databricks.token"));
+            assertEquals("development", taskConfig.get("databricks.catalog"));
+            assertEquals("default", taskConfig.get("databricks.schema"));
         }
     }
 

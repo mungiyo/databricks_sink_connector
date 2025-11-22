@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Delta Lake Sink Connector
- * Kafka 토픽의 데이터를 Delta Lake로 저장하는 Connector
+ * Databricks Sink Connector
+ * Kafka 토픽의 데이터를 Databricks Delta Lake로 전송하는 Connector
+ * Debezium CDC 메시지를 받아 Databricks staging 테이블에 INSERT 수행
  */
 public class DeltaLakeSinkConnector extends SinkConnector {
     

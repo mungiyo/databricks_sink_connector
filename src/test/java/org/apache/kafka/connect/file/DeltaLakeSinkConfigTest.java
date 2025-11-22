@@ -15,27 +15,17 @@ class DeltaLakeSinkConfigTest {
     @Test
     void testConfigWithAllProperties() {
         Map<String, String> props = new HashMap<>();
-        props.put("delta.table.path", "/tmp/delta-table");
-        props.put("flush.size", "500");
-        props.put("partition.column", "date");
+        props.put("databricks.jdbc.url", "jdbc:databricks://test:443/default");
+        props.put("databricks.token", "dapi123");
+        props.put("databricks.catalog", "development");
+        props.put("databricks.schema", "default");
 
         DeltaLakeSinkConfig config = new DeltaLakeSinkConfig(props);
 
-        assertEquals("/tmp/delta-table", config.getDeltaTablePath());
-        assertEquals(500, config.getFlushSize());
-        assertEquals("date", config.getPartitionColumn());
-    }
-
-    @Test
-    void testConfigWithDefaultValues() {
-        Map<String, String> props = new HashMap<>();
-        props.put("delta.table.path", "/tmp/delta-table");
-
-        DeltaLakeSinkConfig config = new DeltaLakeSinkConfig(props);
-
-        assertEquals("/tmp/delta-table", config.getDeltaTablePath());
-        assertEquals(1000, config.getFlushSize()); // 기본값
-        assertEquals("", config.getPartitionColumn()); // 기본값
+        assertEquals("jdbc:databricks://test:443/default", config.getDatabricksJdbcUrl());
+        assertEquals("dapi123", config.getDatabricksToken());
+        assertEquals("development", config.getDatabricksCatalog());
+        assertEquals("default", config.getDatabricksSchema());
     }
 
     @Test
